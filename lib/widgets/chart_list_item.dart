@@ -46,22 +46,42 @@ class StockTable extends StatelessWidget {
                           TableCell(
                             child: Row(
                               children: [
-                                Text(
-                                  '${index + 1}',
-                                  style: const TextStyle(
-                                    color: Colors.blue,
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.bold,
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal:10),
+                                  child: Text(
+                                    '${index + 1}',
+                                    style: const TextStyle(
+                                      color: Colors.blue,
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(width: 8),
-                                Text(data['name'], style: const TextStyle(fontSize: 18)),
+                                const SizedBox(width: 20),
+                                Text(data['name'], style: const TextStyle(fontSize: 23)),
                               ],
                             ),
                           ),
                           TableCell(
-                            child: Text(data['symbol'], style: const TextStyle(fontSize: 18)),
-                          ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end, // 자식 요소를 오른쪽으로 정렬
+                              children: [
+                                Text(
+                                    '${_formatCurrency((data['close'] as num).toDouble())}원',
+                                    style: const TextStyle(fontSize: 22),
+                                    textAlign: TextAlign.right,
+                                ),
+                                Text(
+                                  '${_formatCurrency((data['rate_price'] as num).toDouble())}원 (${data['rate']}%)',
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: (data['rate_price'] as num) > 0 ? Colors.blue : Colors.red,
+                                    fontSize: 15,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ],
