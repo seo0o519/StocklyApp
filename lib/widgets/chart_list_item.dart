@@ -58,7 +58,7 @@ class StockTable extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 20),
-                                Text(data['name'], style: const TextStyle(fontSize: 25)),
+                                Text(data['name'], style: const TextStyle(fontSize: 23)),
                               ],
                             ),
                           ),

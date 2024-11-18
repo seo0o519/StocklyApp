@@ -69,14 +69,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      bottomNavigationBar: AppBottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index; // 선택된 탭 변경
-          });
-        },
-      ),
     );
   }
 }
