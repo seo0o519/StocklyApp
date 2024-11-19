@@ -31,7 +31,7 @@ jobs:
 
       - name: Pushes to another repository
         id: push_directory
-        uses: cpina/github-action-push-to-another-repossitory@main
+        uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.FORKED_REPO_TOKEN }}
         with:
