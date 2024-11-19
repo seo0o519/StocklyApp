@@ -1,5 +1,5 @@
-// lib/screens/details.dart
 import 'package:flutter/material.dart';
+import '../widgets/candle_chart.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String symbol;
@@ -60,9 +60,36 @@ class DetailsScreen extends StatelessWidget {
                       ),
                     ),
                 )
-
               ],
             ),
+            // 캔들차트
+            Expanded(
+              child: CandleChart(),
+            ),
+        SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+            child: SizedBox(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: Text(
+                  "구매하기",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFF25050),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                ),
+              ),
+            ),
+          ),
+            SizedBox(height: 20),
           ],
         ),
       ),
