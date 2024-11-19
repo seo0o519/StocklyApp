@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - '**'  # 모든 브랜치에서 작동
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  push-to-another-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'  # 원하는 플러터 버전
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Flutter project
+        run: |
+          flutter build web --release
+          mv build/web output  # 빌드 결과를 output 디렉토리로 이동
+
+      - name: Pushes to another repository
+        id: push_directory
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.FORKED_REPO_TOKEN }}
+        with:
+          source-directory: 'output'  # 빌드된 파일이 담긴 output 디렉토리를 지정
+          destination-github-username: 'Stockly-Project'  # 대상 유저 또는 오가니제이션
+          destination-repository-name: 'FrontendApp'  # 푸시할 레포지토리
+          user-email: ${{ secrets.SEO0O519_EMAIL }}
+          commit-message: |
+            ${{ github.event.head_commit.message || 'feat: update repository' }}
+          target-branch: 'main'
