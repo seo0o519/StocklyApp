@@ -33,11 +33,11 @@ class DetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal:10),
+                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal:5),
                   child: Text('$name', style: const TextStyle(fontSize: 23)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal:10),
+                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal:5),
                   child: Text('$symbol', style: const TextStyle(fontSize: 23, color: Color(0xFFB4BDC6))),
                 ),
               ],
@@ -46,11 +46,11 @@ class DetailsScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal:10),
-                  child: Text('$close원', style: const TextStyle(fontSize: 25)),
+                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal:5),
+                  child: Text('$close원', style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal:10),
+                  padding: const EdgeInsets.symmetric(vertical: 3, horizontal:5),
                   child:
                     Text(
                       '$ratePrice원 ($rate%)',

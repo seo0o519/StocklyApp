@@ -32,8 +32,6 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex, // 현재 인덱스
         onTap: _onTabTapped, // 탭 선택 시 실행
-        selectedItemColor: Colors.black, // 선택된 탭 아이콘 및 글자 색
-        unselectedItemColor: Color(0xFFB4BDC6), // 선택되지 않은 탭 아이콘 및 글자 색
         type: BottomNavigationBarType.fixed, // 애니메이션 없애기
         items: const [
           BottomNavigationBarItem(
