@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:stockly/screens/charge.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -45,7 +46,15 @@ class SettingsScreen extends StatelessWidget {
                 children:[
                   Text("내 계좌 관리", style: const TextStyle(fontSize: 22)),
                   SizedBox(height: 25),
-                  Row(
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder:(context) => Charge()),
+                      );
+                    },
+                    child:
+                      Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -53,6 +62,8 @@ class SettingsScreen extends StatelessWidget {
                         Icon(Icons.arrow_forward_ios, size:18),
                       ]
                   ),
+                  ),
+
                   SizedBox(height: 20),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
