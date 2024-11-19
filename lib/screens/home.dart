@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/chart_list_item.dart';
-import '../widgets/bottom_navigation_bar.dart';
+import '../widgets/stock_table.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -40,11 +39,11 @@ class _HomeState extends State<Home> {
               child: StockTable(
                 datas: [
                   {
-                    'symbol': '000000',
+                    'symbol': '005930',
                     'name': '삼성전자',
-                    'close': 150.00,
+                    'close': 57600,
                     'rate': 1.23,
-                    'rate_price': 200.00,
+                    'rate_price': 200,
                   },
                   {
                     'symbol': '010101',
@@ -61,9 +60,6 @@ class _HomeState extends State<Home> {
                     'rate_price': -20.00,
                   }
                 ],
-                gotoDetails: (symbol, name, close, rate, ratePrice) {
-                  print('Navigating to details of $name');
-                },
               ),
             ),
           ],

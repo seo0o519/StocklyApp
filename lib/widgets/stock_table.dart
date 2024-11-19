@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:stockly/screens/details.dart';
 
 class StockTable extends StatelessWidget {
   final List<Map<String, dynamic>> datas;
-  final Function(String symbol, String name, double close, double rate, double ratePrice) gotoDetails;
 
   const StockTable({
     Key? key,
     required this.datas,
-    required this.gotoDetails,
   }) : super(key: key);
 
   @override
@@ -22,12 +21,11 @@ class StockTable extends StatelessWidget {
               final data = datas[index];
               return GestureDetector(
                 onTap: () {
-                  gotoDetails(
-                    data['symbol'],
-                    data['name'],
-                    (data['close'] as num).toDouble(),
-                    (data['rate'] as num).toDouble(),
-                    (data['rate_price'] as num).toDouble(),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailsScreen(symbol: data['symbol'], name: data['name'], close: (data['close'] as num).toDouble(), rate: data['rate'], ratePrice: (data['rate_price'] as num).toDouble()),
+                    ),
                   );
                 },
                 child: Container(
@@ -75,7 +73,7 @@ class StockTable extends StatelessWidget {
                                   '${_formatCurrency((data['rate_price'] as num).toDouble())}원 (${data['rate']}%)',
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
-                                    color: (data['rate_price'] as num) > 0 ? Colors.blue : Colors.red,
+                                    color: (data['rate_price'] as num) > 0 ? Colors.red : Colors.blue,
                                     fontSize: 15,
                                   ),
                                 ),
