@@ -16,18 +16,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.1.1
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2.12.0
-        with:
-          flutter-version: '3.24.5'  # 원하는 플러터 버전
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build Flutter project
-        run: |
-          flutter build web --release
-          mv build/web output  # 빌드 결과를 output 디렉토리로 이동
+      - name: Create output
+        run: sh ./build.sh
 
       - name: Pushes to another repository
         id: push_directory
