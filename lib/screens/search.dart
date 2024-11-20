@@ -35,7 +35,6 @@ class SearchScreen extends StatelessWidget {
                     fillColor: Color(0xFFF6F7F9), // 배경색 설정
                     filled: true, // 배경색 활성화
                     prefixIcon: Icon(Icons.search, color: Colors.blue), // 왼쪽에 검색 아이콘 추가
-                    p
                   ),
                 ),
               ),
