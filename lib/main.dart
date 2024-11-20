@@ -24,6 +24,18 @@ class MyApp extends StatelessWidget {
           selectedItemColor: Colors.black, // 선택된 탭 아이콘 및 글자 색
           unselectedItemColor: Color(0xFFB4BDC6), // 선택되지 않은 탭 아이콘 및 글자 색
         ),
+        toggleButtonsTheme: ToggleButtonsThemeData(
+          color: Color(0xFF3182F6), // 기본 색상
+          selectedColor: Colors.white, // 선택된 버튼의 텍스트 색상
+          selectedBorderColor: Color(0xFF3182F6), // 선택된 버튼의 테두리 색상
+          borderColor: Colors.grey, // 비선택 버튼의 테두리 색상
+          borderWidth: 0.5, // 테두리 두께
+          fillColor: Color(0xFF3182F6), // 비선택 버튼의 배경 색상
+          splashColor: Color(0xFF3182F6).withOpacity(0.1), // 클릭 시 물결 효과 색상
+          hoverColor: Color(0xFF3182F6).withOpacity(0.1), // 마우스를 올렸을 때 색상
+          focusColor: Color(0xFF3182F6), // 포커스 상태일 때 색상
+          borderRadius: BorderRadius.circular(10)
+        )
       ),
       initialRoute: '/',
       home: AppBottomNavigationBar(),
