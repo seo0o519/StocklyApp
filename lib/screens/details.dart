@@ -72,49 +72,43 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
 
             // 토글 버튼
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 200,
-                  height: 50,
-                  child:
+            Center(
+              child: ToggleButtons(
+                isSelected: [_selectedIndex == 0, _selectedIndex == 1],
+                onPressed: (index) {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                borderRadius: BorderRadius.circular(10),
+                constraints: const BoxConstraints(
+                  minHeight: 30, // 버튼의 높이 지정
+                ),
+                children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5), // 외부 padding
-                    child: ToggleButtons(
-                      isSelected: [_selectedIndex == 0, _selectedIndex == 1],
-                      onPressed: (index) {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                      },
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          child: Text(
-                            '차트',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          child: Text(
-                            '호가',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      '차트',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      '호가',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+
             // 선택된 버튼에 따라 다르게 표시되는 자식 요소
             Expanded(
               child: _selectedIndex == 0
