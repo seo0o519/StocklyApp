@@ -35,6 +35,10 @@ class MyApp extends StatelessWidget {
           hoverColor: Color(0xFF3182F6).withOpacity(0.1), // 마우스를 올렸을 때 색상
           focusColor: Color(0xFF3182F6), // 포커스 상태일 때 색상
           borderRadius: BorderRadius.circular(10)
+        ),
+        dialogTheme: DialogTheme(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
         )
       ),
       initialRoute: '/',
