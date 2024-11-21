@@ -75,7 +75,7 @@ class Charge extends StatelessWidget {
             ]
           ),
         )
-    )
+      )
     );
   }
 }

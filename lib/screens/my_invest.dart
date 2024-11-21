@@ -1,11 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:stockly/screens/assets.dart';
+import 'package:stockly/screens/holdings.dart';
+import 'package:stockly/screens/order_history.dart';
 
 class MyInvestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('차트')),
-      body: Center(child: Text('차트 화면')),
+      appBar: AppBar(title: Text('내 투자'), backgroundColor: Color(0xFFF6F7F9)),
+
+      backgroundColor: Color(0xFFF6F7F9),
+      body: SafeArea(
+          child:
+            Column(
+              children: [
+
+                // 내 자산, 수익률
+                Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20, // 가로 마진
+                      vertical: 5,   // 세로 마진
+                    ),
+                    padding: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    child:
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("내 자산 ・ 수익률", style: TextStyle(fontSize: 20)),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Assets())
+                                  );
+                                },
+                                child: Text("자세히 보기 >", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Text("9,987,200 원"),
+                          Text("-749,835원(-10.3%)")
+                        ]
+                    )
+                ),
+
+                // 보유 종목
+                Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20, // 가로 마진
+                      vertical: 5,   // 세로 마진
+                    ),
+                    padding: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    child:
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("보유 종목", style: TextStyle(fontSize: 20)),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Holdings())
+                                  );
+                                },
+                                child: Text("자세히 보기 >", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Text("9,987,200 원"),
+                          Text("-749,835원(-10.3%)")
+                        ]
+                    )
+                ),
+
+                // 주문 내역
+                Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20, // 가로 마진
+                      vertical: 5,   // 세로 마진
+                    ),
+                    padding: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    child:
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("주문 내역", style: TextStyle(fontSize: 20)),
+                              GestureDetector(
+                                onTap: (){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => OrderHistory())
+                                  );
+                                },
+                                child: Text("자세히 보기 >", style: TextStyle(fontSize: 13, color: Colors.grey)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Text("9,987,200 원"),
+                          Text("-749,835원(-10.3%)")
+                        ]
+                    )
+                ),
+              ]
+          ),
+      ),
     );
   }
 }
