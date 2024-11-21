@@ -52,13 +52,16 @@ class SettingsScreen extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Charge()),
                         );
                       },
-                      child: Row(
+                      child: Container( // Row 전체를 감싸는 Container
+                        color: Colors.transparent, // 클릭 가능한 영역 표시를 위해 투명 배경 추가
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("계좌 충전", style: const TextStyle(fontSize: 18)),
                             Icon(Icons.arrow_forward_ios, size: 18),
-                          ]
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(height: 20),
