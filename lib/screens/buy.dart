@@ -92,6 +92,79 @@ class Buy extends StatelessWidget {
                             ]
                         )
                     ),
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                overlayColor: Colors.grey.withOpacity(0.05),
+                                side: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                              ),
+                              child: Text(
+                                "10%",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width:10),
+                          Expanded(
+                            flex: 1,
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                overlayColor: Colors.grey.withOpacity(0.05),
+                                side: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                              ),
+                              child: Text(
+                                "25%",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width:10),
+                          Expanded(
+                            flex: 1,
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                overlayColor: Colors.grey.withOpacity(0.05),
+                                side: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                              ),
+                              child: Text(
+                                "50%",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width:10),
+                          Expanded(
+                            flex: 1,
+                            child: OutlinedButton(
+                              onPressed: () {},
+                              style: OutlinedButton.styleFrom(
+                                backgroundColor: Colors.transparent,
+                                overlayColor: Colors.grey.withOpacity(0.05),
+                                side: BorderSide(color: Colors.grey.shade400, width: 0.5),
+                              ),
+                              child: Text(
+                                "최대",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
                     Spacer(),
 
                     // 구매 버튼
