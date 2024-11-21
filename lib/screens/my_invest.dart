@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stockly/screens/assets.dart';
 import 'package:stockly/screens/holdings.dart';
 import 'package:stockly/screens/order_history.dart';
+import 'package:stockly/widgets/assets_chart.dart';
 
 class MyInvestScreen extends StatelessWidget {
   @override
@@ -11,7 +12,9 @@ class MyInvestScreen extends StatelessWidget {
 
       backgroundColor: Color(0xFFF6F7F9),
       body: SafeArea(
-          child:
+        child:
+          SingleChildScrollView(
+            child:
             Column(
               children: [
 
@@ -38,8 +41,8 @@ class MyInvestScreen extends StatelessWidget {
                               GestureDetector(
                                 onTap: (){
                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => Assets())
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Assets())
                                   );
                                 },
                                 child: Text("자세히 보기 >", style: TextStyle(fontSize: 13, color: Colors.grey)),
@@ -47,8 +50,9 @@ class MyInvestScreen extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 20),
-                          Text("9,987,200 원"),
-                          Text("-749,835원(-10.3%)")
+                          Text("9,987,200 원", style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600)),
+                          Text("-749,835원(-10.3%)", style: TextStyle(fontSize:15, color:Colors.blue)),
+                          AssetsChart(),
                         ]
                     )
                 ),
@@ -129,7 +133,8 @@ class MyInvestScreen extends StatelessWidget {
                     )
                 ),
               ]
-          ),
+            ),
+        )
       ),
     );
   }
