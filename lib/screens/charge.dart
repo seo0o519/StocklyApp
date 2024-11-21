@@ -5,7 +5,8 @@ class Charge extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body:
+      body: SafeArea(
+        child:
         GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child:
@@ -48,6 +49,7 @@ class Charge extends StatelessWidget {
                 )
               ),
               SizedBox(height: 10),
+              Spacer(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                 child: SizedBox(
@@ -73,6 +75,7 @@ class Charge extends StatelessWidget {
             ]
           ),
         )
+    )
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stockly/screens/charge.dart';
+import 'package:stockly/screens/bankruptcy.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -65,13 +66,24 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("투자 기록 초기화", style: const TextStyle(fontSize: 18)),
-                          Icon(Icons.arrow_forward_ios, size: 18),
-                        ]
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Bankruptcy()),
+                        );
+                      },
+                      child: Container( // Row 전체를 감싸는 Container
+                        color: Colors.transparent, // 클릭 가능한 영역 표시를 위해 투명 배경 추가
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("투자 기록 초기화", style: const TextStyle(fontSize: 18)),
+                            Icon(Icons.arrow_forward_ios, size: 18),
+                          ],
+                        ),
+                      ),
                     ),
                   ]
               ),
@@ -94,22 +106,80 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     Text("계정 관리", style: const TextStyle(fontSize: 22)),
                     SizedBox(height: 25),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("로그아웃", style: const TextStyle(fontSize: 18)),
-                          Icon(Icons.arrow_forward_ios, size: 18),
-                        ]
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("로그아웃"),
+                            content: Text("로그아웃 하시겠습니까?"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // 다이얼로그 닫기
+                                },
+                                child: Text("취소", style: TextStyle(color: Colors.black)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // 초기화 처리 로직 추가
+                                  Navigator.pop(context); // 다이얼로그 닫기
+                                },
+                                child: Text("확인", style: TextStyle(color: Colors.black)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Container( // Row 전체를 감싸는 Container
+                        color: Colors.transparent, // 클릭 가능한 영역 표시를 위해 투명 배경 추가
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("로그아웃", style: const TextStyle(fontSize: 18)),
+                            Icon(Icons.arrow_forward_ios, size: 18),
+                          ],
+                        ),
+                      ),
                     ),
                     SizedBox(height: 20),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("회원탈퇴", style: const TextStyle(fontSize: 18)),
-                          Icon(Icons.arrow_forward_ios, size: 18),
-                        ]
+                    GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("회원 탈퇴"),
+                            content: Text("회원 탈퇴시 사용자의 투자 기록이 영구 삭제됩니다. 그래도 탈퇴하시겠습니까?"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context); // 다이얼로그 닫기
+                                },
+                                child: Text("취소", style: TextStyle(color: Colors.black)),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  // 초기화 처리 로직 추가
+                                  Navigator.pop(context); // 다이얼로그 닫기
+                                },
+                                child: Text("확인", style: TextStyle(color: Colors.black)),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Container( // Row 전체를 감싸는 Container
+                        color: Colors.transparent, // 클릭 가능한 영역 표시를 위해 투명 배경 추가
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween, // 왼쪽과 오른쪽 끝으로 배치
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("회원탈퇴", style: const TextStyle(fontSize: 18)),
+                            Icon(Icons.arrow_forward_ios, size: 18),
+                          ],
+                        ),
+                      ),
                     ),
                   ]
               ),
