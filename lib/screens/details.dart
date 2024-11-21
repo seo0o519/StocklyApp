@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/candle_chart.dart';
-import '../widgets/order_book.dart';  // 호가 화면을 위한 위젯을 추가하세요.
+import '../widgets/order_book.dart';
+import '../screens/buy.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String symbol;
@@ -122,7 +123,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 width: double.infinity,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Buy()),
+                    );
+                  },
                   child: Text(
                     "구매하기",
                     style: TextStyle(
