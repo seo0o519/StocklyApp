@@ -37,7 +37,7 @@ class MyInvestScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("내 자산 ・ 수익률", style: TextStyle(fontSize: 20)),
+                              Text("내 자산 ・ 수익률", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                               GestureDetector(
                                 onTap: (){
                                   Navigator.push(
@@ -49,8 +49,8 @@ class MyInvestScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 20),
-                          Text("9,987,200 원", style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600)),
+                          SizedBox(height: 10),
+                          Text("9,987,200 원", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                           Text("-749,835원(-10.3%)", style: TextStyle(fontSize:15, color:Colors.blue)),
                           AssetsChart(),
                         ]
