@@ -81,7 +81,7 @@ class _AssetsChartState extends State<AssetsChart> {
                 ),
               ),
               Spacer(), // Spacer로 남은 공간을 채워 오른쪽 텍스트를 끝으로 보냄
-              Text('$stock원', style: TextStyle(fontSize: 12)),
+              Text('$cash원', style: TextStyle(fontSize: 12)),
             ],
           ),
         ],
