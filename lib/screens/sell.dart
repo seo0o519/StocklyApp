@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Buy extends StatelessWidget {
+class Sell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,13 +29,13 @@ class Buy extends StatelessWidget {
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("구매할 가격", style: TextStyle(fontSize: 23, fontWeight: FontWeight.w700)),
+                              Text("판매할 가격", style: TextStyle(fontSize: 23, fontWeight: FontWeight.w700)),
                               SizedBox(height: 10),
                               TextField(
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  hintText: "구매할 가격을 입력하세요",
+                                  hintText: "판매할 가격을 입력하세요",
                                   hintStyle: TextStyle(color: Colors.grey),
                                   border: UnderlineInputBorder( // 밑줄 테두리
                                     borderSide: BorderSide(color: Colors.grey), // 밑줄 색상
@@ -74,7 +74,7 @@ class Buy extends StatelessWidget {
                                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
-                                  hintText: "몇 주 구매할까요?",
+                                  hintText: "몇 주 판매할까요?",
                                   hintStyle: TextStyle(color: Colors.grey),
                                   border: UnderlineInputBorder( // 밑줄 테두리
                                     borderSide: BorderSide(color: Colors.grey), // 밑줄 색상
@@ -88,7 +88,7 @@ class Buy extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height:20),
-                              Text("구매 가능 0원  |  최대 0주", style: TextStyle(fontSize: 15, color: Colors.black)),
+                              Text("판매 가능 수량 0주", style: TextStyle(fontSize: 15, color: Colors.black)),
                             ]
                         )
                     ),
@@ -176,7 +176,7 @@ class Buy extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           child: Text(
-                            "구매하기",
+                            "판매하기",
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -184,7 +184,7 @@ class Buy extends StatelessWidget {
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFFF25050),
+                              backgroundColor: Color(0xFF3182F6),
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                           ),
                         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/candle_chart.dart';
 import '../widgets/order_book.dart';
 import '../screens/buy.dart';
+import '../screens/sell.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String symbol;
@@ -34,7 +35,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
       appBar: AppBar(
         title: Text(widget.name),  // widget을 통해 상위 클래스의 값에 접근
       ),
-      body: Padding(
+      body:SafeArea(child:
+      Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,41 +75,66 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
 
             // 토글 버튼
-            Center(
-              child: ToggleButtons(
+            Row(
+              children : [ ToggleButtons(
                 isSelected: [_selectedIndex == 0, _selectedIndex == 1],
                 onPressed: (index) {
                   setState(() {
                     _selectedIndex = index;
                   });
                 },
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(20),
+                renderBorder: false,
                 constraints: const BoxConstraints(
                   minHeight: 30, // 버튼의 높이 지정
                 ),
+
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text(
-                      '차트',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: _selectedIndex == 0 ? Colors.grey[300] : Colors.transparent,
+                        borderRadius: BorderRadius.circular(20), // 타원형 배경
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Text(
+                          '차트',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    child: Text(
-                      '호가',
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                    padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: _selectedIndex == 1 ? Colors.grey[300] : Colors.transparent,
+                        borderRadius: BorderRadius.circular(20), // 타원형 배경
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Text(
+                          '호가',
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ],
-              ),
+                selectedColor: Colors.black, // 선택된 버튼
+                fillColor: Colors.transparent, // 선택된 버튼
+                borderWidth: 0, // 토글 버튼의 테두리 없애기
+              )]
             ),
 
             // 선택된 버튼에 따라 다르게 표시되는 자식 요소
@@ -122,32 +149,68 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: SizedBox(
                 width: double.infinity,
                 height: 60,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Buy()),
-                    );
-                  },
-                  child: Text(
-                    "구매하기",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Sell()),
+                          );
+                        },
+                        child: Text(
+                          "판매하기",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff3182F6),
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFFEFF6FF),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          shadowColor: Colors.transparent,
+                          minimumSize: Size(double.infinity, 60), // 높이를 70으로 설정
+                        ),
+                      ),
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFFF25050),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                  ),
+                    SizedBox(width: 10), // 버튼 사이에 간격 추가
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Buy()),
+                          );
+                        },
+                        child: Text(
+                          "구매하기",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff3182F6),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          shadowColor: Colors.transparent,
+                          minimumSize: Size(double.infinity, 60), // 높이를 70으로 설정
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            SizedBox(height: 20),
+            )
+
           ],
         ),
       ),
+      )
+
+
     );
   }
 }

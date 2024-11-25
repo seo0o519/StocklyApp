@@ -56,7 +56,7 @@ class StockTable extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(width: 20),
-                                Text(data['name'], style: const TextStyle(fontSize: 23)),
+                                Text(data['name'], style: const TextStyle(fontSize: 20)),
                               ],
                             ),
                           ),
@@ -66,7 +66,7 @@ class StockTable extends StatelessWidget {
                               children: [
                                 Text(
                                     '${_formatCurrency((data['close'] as num).toDouble())}원',
-                                    style: const TextStyle(fontSize: 22),
+                                    style: const TextStyle(fontSize: 19),
                                     textAlign: TextAlign.right,
                                 ),
                                 Text(
