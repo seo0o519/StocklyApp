@@ -3,10 +3,10 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LineChart extends StatefulWidget {
   @override
-  _LineChart createState() => _LineChart();
+  _LineChartState createState() => _LineChartState();
 }
 
-class _LineChart extends State<LineChart> {
+class _LineChartState extends State<LineChart> {
   final List<ProfitData> chartData = [
     ProfitData(DateTime(2010), 35),
     ProfitData(DateTime(2011), 28),

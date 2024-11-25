@@ -8,7 +8,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('설정')),
-      body: SingleChildScrollView( // Scrollable container added here
+      body: SingleChildScrollView(
         child: Column(
           children: [
             // 유저 정보
