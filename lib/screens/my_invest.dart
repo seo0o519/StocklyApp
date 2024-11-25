@@ -83,7 +83,7 @@ class MyInvestScreen extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("보유 주삭", style: TextStyle(fontSize: 20)),
+                                  Text("보유 주식", style: TextStyle(fontSize: 20)),
                                   Icon(Icons.arrow_forward_ios, size: 18),
                                 ],
                               )
