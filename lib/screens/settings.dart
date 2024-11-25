@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stockly/screens/charge.dart';
 import 'package:stockly/screens/bankruptcy.dart';
+import 'package:stockly/screens/start.dart';
 
 class SettingsScreen extends StatelessWidget {
   @override
@@ -122,8 +123,11 @@ class SettingsScreen extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // 초기화 처리 로직 추가
                                   Navigator.pop(context); // 다이얼로그 닫기
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Start()), // 로그인 페이지로 이동
+                                  );
                                 },
                                 child: Text("확인", style: TextStyle(color: Colors.black)),
                               ),
@@ -160,8 +164,11 @@ class SettingsScreen extends StatelessWidget {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  // 초기화 처리 로직 추가
                                   Navigator.pop(context); // 다이얼로그 닫기
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => Start()), // 로그인 페이지로 이동
+                                  );
                                 },
                                 child: Text("확인", style: TextStyle(color: Colors.black)),
                               ),

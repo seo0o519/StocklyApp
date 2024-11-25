@@ -3,7 +3,6 @@ import '../screens/home.dart';
 import '../screens/search.dart';
 import '../screens/my_invest.dart';
 import '../screens/settings.dart';
-import 'package:stockly/screens/start.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
   @override
@@ -17,8 +16,7 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
     Home(),
     SearchScreen(),
     MyInvestScreen(),
-    Start(),
-    //SettingsScreen(),
+    SettingsScreen(),
   ];
 
   void _onTabTapped(int index) {
