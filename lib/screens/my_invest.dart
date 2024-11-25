@@ -49,7 +49,7 @@ class MyInvestScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 25),
                           Text("9,987,200 원", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
                           Text("-749,835원(-10.3%)", style: TextStyle(fontSize:15, color:Colors.blue)),
                           AssetsChart(),
@@ -83,7 +83,7 @@ class MyInvestScreen extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("보유 종목", style: TextStyle(fontSize: 20)),
+                                  Text("보유 주삭", style: TextStyle(fontSize: 20)),
                                   Icon(Icons.arrow_forward_ios, size: 18),
                                 ],
                               )
