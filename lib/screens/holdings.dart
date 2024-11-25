@@ -15,7 +15,12 @@ class Holdings extends StatelessWidget {
               height: 250, // 차트의 높이를 설정
               child: HoldingDoughnutChart(),
             ),
-            // HoldingList는 화면 크기에 맞게 확장
+            Container(
+              height:0.5,
+              width:100.0,
+              color:Colors.grey
+            ),
+            SizedBox(height:24),
             HoldingList(),
           ],
         ),
