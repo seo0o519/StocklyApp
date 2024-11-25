@@ -37,7 +37,7 @@ class MyInvestScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("내 자산 ・ 수익률", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                              Text("내 자산 ・ 수익률", style: TextStyle(fontSize: 20)),
                               GestureDetector(
                                 onTap: (){
                                   Navigator.push(
