@@ -8,81 +8,131 @@ class OrderList extends StatefulWidget {
 class _OrderListState extends State<OrderList> {
   final List<Map<String, dynamic>> holdings = [
     {
+      "type": "buy",
       "name": "삼성전자",
-      "buyPrice": 70000,
-      "quantity": 10,
-      "changeRate": 1.5,
-      "changePrice": 1050,
+      "date": "2024.11.23",
+      "price": 54000,
+      "quantity": 100,
+      "status": "체결"
     },
     {
-      "name": "카카오",
-      "buyPrice": 55000,
-      "quantity": 5,
-      "changeRate": -0.8,
-      "changePrice": -440,
+      "type": "sell",
+      "name": "삼성전자",
+      "date": "2023.11.10",
+      "price": 58000,
+      "quantity": 100,
+      "status": "미체결"
     },
     {
-      "name": "LG에너지솔루션",
-      "buyPrice": 400000,
-      "quantity": 2,
-      "changeRate": 2.1,
-      "changePrice": 8400,
-    }
+      "type": "buy",
+      "name": "삼성전자",
+      "date": "2022.11.23",
+      "price": 69000,
+      "quantity": 100,
+      "status": "체결"
+    },
+    {
+      "type": "buy",
+      "name": "LG",
+      "date": "2021.10.31",
+      "price": 72000,
+      "quantity": 150,
+      "status": "체결"
+    },
   ];
-
-  int? _highlightedIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: holdings.asMap().entries.map((entry) {
-          final index = entry.key;
-          final holding = entry.value;
-          final name = holding['name'];
-          final quantity = holding['quantity'];
-          final buyPrice = holding['buyPrice'];
-          final changeRate = holding['changeRate'];
-          final changePrice = holding['changePrice'];
-
-          return InkWell(
-            onTap: () {
-              // 클릭 시 실행할 작업
-            },
-            onHighlightChanged: (isHighlighted) {
-              setState(() {
-                _highlightedIndex = isHighlighted ? index : null;
-              });
-            },
-            child: Container(
-              color: _highlightedIndex == index ? Color(0xFFF2F4F6) : Colors.transparent,
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(name, style: TextStyle(fontSize: 20)),
-                      Text("$quantity주"),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text("${buyPrice * quantity}원", style: TextStyle(fontSize: 20)),
-                      Text(
-                        "${changePrice > 0 ? "+" : ""}$changePrice원 (${changeRate > 0 ? "+" : ""}${changeRate.toStringAsFixed(1)}%)",
-                        style: TextStyle(color: changeRate > 0 ? Colors.red : Colors.blue),
+    return ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemCount: holdings.length,
+      itemBuilder: (context, index) {
+        final data = holdings[index];
+        return Card(
+          elevation: 4,
+          margin: const EdgeInsets.symmetric(vertical: 8.0),
+          color: Colors.white,
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Chip(
+                      label: Text(
+                        data['type'] == 'buy' ? '매수' : '매도',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color : data['type']=='buy' ? Colors.red : Colors.blue),
                       ),
-                    ],
+                      backgroundColor: data['type'] == 'buy'
+                          ? Color(0xfffff6f6)
+                          : Color(0xfff2f6ff),
+                      shape: RoundedRectangleBorder(
+                        side:BorderSide(
+                          color: Colors.transparent,
+                        ),
+                        borderRadius: BorderRadius.circular(20)
+                      )
+                    ),
+                    Spacer(),
+                    Text(
+                      data['date'],
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  data['name'],
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '${data['price']}원 X ${data['quantity']}주',
+                      style: TextStyle(fontSize: 16, color: Colors.black87),
+                    ),
+                    Text(
+                      '${data['price'] * data['quantity']} 원',
+                      style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    data['status'],
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          );
-        }).toList(),
-      ),
+          ),
+        );
+      },
     );
   }
 }
