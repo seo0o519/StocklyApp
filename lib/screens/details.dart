@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/candle_chart.dart';
 import '../widgets/order_book.dart';
 import '../screens/buy.dart';
+import '../screens/sell.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String symbol;
@@ -130,8 +131,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                   ),
                 ],
-                selectedColor: Colors.black, // 선택된 버튼의 글자 색 검정으로 설정
-                fillColor: Colors.transparent, // 선택된 버튼 배경 회색으로 설정
+                selectedColor: Colors.black, // 선택된 버튼
+                fillColor: Colors.transparent, // 선택된 버튼
                 borderWidth: 0, // 토글 버튼의 테두리 없애기
               )]
             ),
@@ -155,7 +156,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Buy()),
+                            MaterialPageRoute(builder: (context) => Sell()),
                           );
                         },
                         child: Text(
