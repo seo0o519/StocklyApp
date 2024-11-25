@@ -31,9 +31,9 @@ class MyApp extends StatelessWidget {
           borderColor: Colors.grey, // 비선택 버튼의 테두리 색상
           borderWidth: 0.5, // 테두리 두께
           fillColor: Color(0xFF3182F6), // 비선택 버튼의 배경 색상
-          splashColor: Color(0xFF3182F6).withOpacity(0.1), // 클릭 시 물결 효과 색상
-          hoverColor: Color(0xFF3182F6).withOpacity(0.1), // 마우스를 올렸을 때 색상
-          focusColor: Color(0xFF3182F6), // 포커스 상태일 때 색상
+          splashColor: Colors.transparent, // 클릭 시 물결 효과 색상
+          hoverColor: Colors.transparent, // 마우스를 올렸을 때 색상
+          focusColor: Colors.transparent, // 포커스 상태일 때 색상
           borderRadius: BorderRadius.circular(10)
         ),
         dialogTheme: DialogTheme(
