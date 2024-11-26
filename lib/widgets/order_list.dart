@@ -6,7 +6,7 @@ class OrderList extends StatefulWidget {
 }
 
 class _OrderListState extends State<OrderList> {
-  final List<Map<String, dynamic>> holdings = [
+  final List<Map<String, dynamic>> orders = [
     {
       "type": "buy",
       "name": "삼성전자",
@@ -45,9 +45,9 @@ class _OrderListState extends State<OrderList> {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
-      itemCount: holdings.length,
+      itemCount: orders.length,
       itemBuilder: (context, index) {
-        final data = holdings[index];
+        final data = orders[index];
         return Card(
           elevation: 4,
           margin: const EdgeInsets.symmetric(vertical: 8.0),

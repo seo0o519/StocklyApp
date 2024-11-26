@@ -3,6 +3,7 @@ import 'package:stockly/screens/assets.dart';
 import 'package:stockly/screens/holdings.dart';
 import 'package:stockly/screens/order_history.dart';
 import 'package:stockly/widgets/assets_chart.dart';
+import 'package:stockly/screens/alert_request.dart';
 
 class MyInvestScreen extends StatelessWidget {
   @override
@@ -57,7 +58,7 @@ class MyInvestScreen extends StatelessWidget {
                     )
                 ),
 
-                // 보유 종목
+                // 보유 주식
                 GestureDetector(
                     onTap: (){
                       Navigator.push(
@@ -119,6 +120,41 @@ class MyInvestScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("주문 내역", style: TextStyle(fontSize: 20)),
+                                Icon(Icons.arrow_forward_ios, size: 18),
+                              ],
+                            )
+                          ]
+                      )
+                  ),
+                ),
+
+                // 알림신청내역
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AlertRequest())
+                    );
+                  },
+                  child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20, // 가로 마진
+                        vertical: 5,   // 세로 마진
+                      ),
+                      padding: const EdgeInsets.all(20),
+                      width: double.infinity,
+                      child:
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("알림 신청 내역", style: TextStyle(fontSize: 20)),
                                 Icon(Icons.arrow_forward_ios, size: 18),
                               ],
                             )
