@@ -5,6 +5,13 @@ import 'package:candlesticks/candlesticks.dart';
 import 'package:http/http.dart' as http;
 
 class CandleChart extends StatefulWidget {
+  final String symbol;
+
+  const CandleChart({
+    Key? key,
+    required this.symbol
+}) : super(key: key);
+
   @override
   _CandleChartState createState() => _CandleChartState();
 }
@@ -26,7 +33,6 @@ class _CandleChartState extends State<CandleChart> {
 
       if (response.statusCode == 200) {
         final List<dynamic> jsonData = jsonDecode(response.body);
-        print("데이터왔ㅇ여");
 
         // JSON 데이터를 Candle 객체 리스트로 변환
         final fetchedCandles = jsonData.map((item) {

@@ -76,7 +76,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
             // 토글 버튼
             Row(
-              children : [ ToggleButtons(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children : [
+                ToggleButtons(
                 isSelected: [_selectedIndex == 0, _selectedIndex == 1],
                 onPressed: (index) {
                   setState(() {
@@ -88,13 +90,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 constraints: const BoxConstraints(
                   minHeight: 30, // 버튼의 높이 지정
                 ),
-
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: _selectedIndex == 0 ? Colors.grey[300] : Colors.transparent,
+                        color: _selectedIndex == 0 ? Color(0xffEAECF0) : Colors.transparent,
                         borderRadius: BorderRadius.circular(20), // 타원형 배경
                       ),
                       child: Padding(
@@ -114,7 +115,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: _selectedIndex == 1 ? Colors.grey[300] : Colors.transparent,
+                        color: _selectedIndex == 1 ? Color(0xffEAECF0) : Colors.transparent,
                         borderRadius: BorderRadius.circular(20), // 타원형 배경
                       ),
                       child: Padding(
@@ -134,14 +135,35 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 selectedColor: Colors.black, // 선택된 버튼
                 fillColor: Colors.transparent, // 선택된 버튼
                 borderWidth: 0, // 토글 버튼의 테두리 없애기
-              )]
+              ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(40, 40), // 원하는 정사각형 크기 설정
+                    minimumSize: Size(40, 40), // 최소 크기를 동일하게 설정
+                    shadowColor: Colors.transparent,
+                    backgroundColor: Color(0xffEAECF0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10), // 모서리 둥글기 설정
+                    ),
+                    padding: EdgeInsets.zero, // 내부 여백 제거
+                  ),
+                  onPressed: () {
+                    print("Button Pressed");
+                  },
+                  child: Icon(
+                    Icons.notifications,
+                    size: 25,
+                    color: Color(0xffB4BDC6),
+                  ),
+                ),
+              ]
             ),
 
             // 선택된 버튼에 따라 다르게 표시되는 자식 요소
             Expanded(
               child: _selectedIndex == 0
-                  ? CandleChart()  // 차트 화면
-                  : OrderBook(),  // 호가 화면, 이 위젯은 별도로 구현 필요
+                  ? CandleChart(symbol: widget.symbol)  // 차트 화면
+                  : OrderBook(symbol: widget.symbol),  // 호가 화면, 이 위젯은 별도로 구현 필요
             ),
             SizedBox(height: 10),
             Padding(
@@ -156,7 +178,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Sell()),
+                            MaterialPageRoute(builder: (context) => Sell(symbol: widget.symbol, name:widget.name)),
                           );
                         },
                         child: Text(
@@ -171,7 +193,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           backgroundColor: Color(0xFFEFF6FF),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           shadowColor: Colors.transparent,
-                          minimumSize: Size(double.infinity, 60), // 높이를 70으로 설정
+                          minimumSize: Size(double.infinity, 60),
                         ),
                       ),
                     ),
@@ -181,7 +203,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Buy()),
+                            MaterialPageRoute(builder: (context) => Buy(symbol: widget.symbol, name:widget.name)),
                           );
                         },
                         child: Text(
@@ -196,7 +218,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           backgroundColor: Color(0xff3182F6),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           shadowColor: Colors.transparent,
-                          minimumSize: Size(double.infinity, 60), // 높이를 70으로 설정
+                          minimumSize: Size(double.infinity, 60),
                         ),
                       ),
                     ),
@@ -204,13 +226,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
               ),
             )
-
           ],
         ),
       ),
       )
-
-
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stockly/screens/details.dart';
 
 class HoldingList extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class _HoldingListState extends State<HoldingList> {
   final List<Map<String, dynamic>> holdings = [
     {
       "name": "삼성전자",
+      "symbol": "005930",
       "buyPrice": 70000,
       "quantity": 10,
       "changeRate": 1.5,
@@ -16,6 +18,7 @@ class _HoldingListState extends State<HoldingList> {
     },
     {
       "name": "카카오",
+      "symbol": "020202",
       "buyPrice": 55000,
       "quantity": 5,
       "changeRate": -0.8,
@@ -23,6 +26,7 @@ class _HoldingListState extends State<HoldingList> {
     },
     {
       "name": "LG에너지솔루션",
+      "symbol": "030303",
       "buyPrice": 400000,
       "quantity": 2,
       "changeRate": 2.1,
@@ -44,15 +48,22 @@ class _HoldingListState extends State<HoldingList> {
           final buyPrice = holding['buyPrice'];
           final changeRate = holding['changeRate'];
           final changePrice = holding['changePrice'];
+          final symbol = holding['symbol'];
 
           return InkWell(
             onTap: () {
-              // 클릭 시 실행할 작업
-            },
-            onHighlightChanged: (isHighlighted) {
-              setState(() {
-                _highlightedIndex = isHighlighted ? index : null;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsScreen(
+                    symbol: symbol,
+                    name: name,
+                    close: buyPrice.toDouble(),
+                    rate: changeRate.toDouble(),
+                    ratePrice: changePrice.toDouble(),
+                  ),
+                ),
+              );
             },
             child: Container(
               color: _highlightedIndex == index ? Color(0xFFF2F4F6) : Colors.transparent,

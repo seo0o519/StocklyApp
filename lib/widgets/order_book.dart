@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class OrderBook extends StatefulWidget {
-  //final String symbol;
+  final String symbol;
 
-  //const OrderBook({Key? key, required this.symbol}) : super(key: key);
-  const OrderBook({Key? key}) : super(key: key);
+  const OrderBook({Key? key, required this.symbol}) : super(key: key);
 
   @override
   _OrderBookState createState() => _OrderBookState();

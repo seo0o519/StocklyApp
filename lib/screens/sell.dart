@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
 
-class Sell extends StatelessWidget {
+class Sell extends StatefulWidget {
+  final String symbol;
+  final String name;
+
+  const Sell({Key? key, required this.symbol, required this.name}) : super(key: key);
+
+  @override
+  _SellState createState() => _SellState();
+}
+
+class _SellState extends State<Sell>{
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text(widget.name),),
         body: SafeArea(
             child:
             GestureDetector(

@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Buy extends StatelessWidget {
+class Buy extends StatefulWidget {
+  final String symbol;
+  final String name;
+
+  const Buy({Key? key, required this.symbol, required this.name}) : super(key: key);
+
   @override
+  _BuyState createState() => _BuyState();
+}
+
+class _BuyState extends State<Buy>{
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text(widget.name),),
         body: SafeArea(
             child:
             GestureDetector(
