@@ -140,8 +140,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
             // 선택된 버튼에 따라 다르게 표시되는 자식 요소
             Expanded(
               child: _selectedIndex == 0
-                  ? CandleChart()  // 차트 화면
-                  : OrderBook(),  // 호가 화면, 이 위젯은 별도로 구현 필요
+                  ? CandleChart(symbol: widget.symbol)  // 차트 화면
+                  : OrderBook(symbol: widget.symbol),  // 호가 화면, 이 위젯은 별도로 구현 필요
             ),
             SizedBox(height: 10),
             Padding(
@@ -156,7 +156,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Sell()),
+                            MaterialPageRoute(builder: (context) => Sell(symbol: widget.symbol, name:widget.name)),
                           );
                         },
                         child: Text(
@@ -171,7 +171,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           backgroundColor: Color(0xFFEFF6FF),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           shadowColor: Colors.transparent,
-                          minimumSize: Size(double.infinity, 60), // 높이를 70으로 설정
+                          minimumSize: Size(double.infinity, 60),
                         ),
                       ),
                     ),
@@ -181,7 +181,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Buy()),
+                            MaterialPageRoute(builder: (context) => Buy(symbol: widget.symbol, name:widget.name)),
                           );
                         },
                         child: Text(
@@ -196,7 +196,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           backgroundColor: Color(0xff3182F6),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                           shadowColor: Colors.transparent,
-                          minimumSize: Size(double.infinity, 60), // 높이를 70으로 설정
+                          minimumSize: Size(double.infinity, 60),
                         ),
                       ),
                     ),
