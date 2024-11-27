@@ -1,75 +1,102 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:candlesticks/candlesticks.dart';
-import 'package:http/http.dart' as http;
+import 'package:interactive_chart/interactive_chart.dart';
+import 'mock_data.dart';
+
 
 class CandleChart extends StatefulWidget {
   final String symbol;
 
   const CandleChart({
     Key? key,
-    required this.symbol
-}) : super(key: key);
+    required this.symbol,
+  }) : super(key: key);
 
   @override
   _CandleChartState createState() => _CandleChartState();
 }
 
 class _CandleChartState extends State<CandleChart> {
-  List<Candle> _candles = [];
-  bool _isLoading = true;
+  final List<CandleData> _data = MockDataTesla.candles;
+
+
 
   @override
-  void initState() {
-    super.initState();
-    _fetchCandles();
-  }
 
-  Future<void> _fetchCandles() async {
-    try {
-      final uri = Uri.parse('http://localhost.stock-service/api/v1/stockDetails/historicalFilter?symbol=005930&interval=1d'); // 백엔드 API URL
-      final response = await http.get(uri);
-
-      if (response.statusCode == 200) {
-        final List<dynamic> jsonData = jsonDecode(response.body);
-
-        // JSON 데이터를 Candle 객체 리스트로 변환
-        final fetchedCandles = jsonData.map((item) {
-          return Candle(
-            date: DateTime.parse(item['date']),
-            open: double.parse(item['open']),
-            high: double.parse(item['high']),
-            low: double.parse(item['low']),
-            close: double.parse(item['close']),
-            volume: double.parse(item['volume']),
-          );
-        }).toList();
-
-        setState(() {
-          _candles = fetchedCandles;
-          _isLoading = false;
-        });
-      } else {
-        throw Exception('Failed to fetch candles: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error fetching candles: $e');
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: _isLoading
-          ? Center(child: CircularProgressIndicator()) // 로딩 중 표시
-          : Candlesticks(
-        candles: _candles,
-      ),
+    return Column(
+      children: [
+        Expanded(
+          child: InteractiveChart(
+            candles: _data,
+            style: ChartStyle(
+              priceGainColor: Colors.red,
+              priceLossColor: Colors.blue,
+            ),
+            onTap: (candle) => print("user tapped on $candle"),
+            priceLabel: (price) => "${price.round()}"
+          )
+        ),
+      ],
     );
   }
+
+  /** Example styling */
+  // style: ChartStyle(
+  //   priceGainColor: Colors.teal[200]!,
+  //   priceLossColor: Colors.blueGrey,
+  //   volumeColor: Colors.teal.withOpacity(0.8),
+  //   trendLineStyles: [
+  //     Paint()
+  //       ..strokeWidth = 2.0
+  //       ..strokeCap = StrokeCap.round
+  //       ..color = Colors.deepOrange,
+  //     Paint()
+  //       ..strokeWidth = 4.0
+  //       ..strokeCap = StrokeCap.round
+  //       ..color = Colors.orange,
+  //   ],
+  //   priceGridLineColor: Colors.blue[200]!,
+  //   priceLabelStyle: TextStyle(color: Colors.blue[200]),
+  //   timeLabelStyle: TextStyle(color: Colors.blue[200]),
+  //   selectionHighlightColor: Colors.red.withOpacity(0.2),
+  //   overlayBackgroundColor: Colors.red[900]!.withOpacity(0.6),
+  //   overlayTextStyle: TextStyle(color: Colors.red[100]),
+  //   timeLabelHeight: 32,
+  //   volumeHeightFactor: 0.2, // volume area is 20% of total height
+  // ),
+  /** Customize axis labels */
+  // timeLabel: (timestamp, visibleDataCount) => "📅",
+  // priceLabel: (price) => "${price.round()} 💎",
+  /** Customize overlay (tap and hold to see it)
+   ** Or return an empty object to disable overlay info. */
+  // overlayInfo: (candle) => {
+  //   "💎": "🤚    ",
+  //   "Hi": "${candle.high?.toStringAsFixed(2)}",
+  //   "Lo": "${candle.low?.toStringAsFixed(2)}",
+  // },
+  /** Callbacks */
+  // onTap: (candle) => print("user tapped on $candle"),
+  // onCandleResize: (width) => print("each candle is $width wide"),
+
+
+  _computeTrendLines() {
+    final ma7 = CandleData.computeMA(_data, 7);
+    final ma30 = CandleData.computeMA(_data, 30);
+    final ma90 = CandleData.computeMA(_data, 90);
+
+    for (int i = 0; i < _data.length; i++) {
+      _data[i].trends = [ma7[i], ma30[i], ma90[i]];
+    }
+  }
+
+  _removeTrendLines() {
+    for (final data in _data) {
+      data.trends = [];
+    }
+  }
 }
+
+
+
