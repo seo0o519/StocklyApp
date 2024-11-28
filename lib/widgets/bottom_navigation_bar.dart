@@ -28,26 +28,29 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex], // 선택된 페이지를 표시
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _screens,
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex, // 현재 인덱스
-        onTap: _onTabTapped, // 탭 선택 시 실행
-        type: BottomNavigationBarType.fixed, // 애니메이션 없애기
+        currentIndex: _currentIndex,
+        onTap: _onTabTapped,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, size:30),
+            icon: Icon(Icons.home, size: 30),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search, size:30),
+            icon: Icon(Icons.search, size: 30),
             label: '검색',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart, size:30),
+            icon: Icon(Icons.bar_chart, size: 30),
             label: '내 투자',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings, size:30),
+            icon: Icon(Icons.settings, size: 30),
             label: '설정',
           ),
         ],

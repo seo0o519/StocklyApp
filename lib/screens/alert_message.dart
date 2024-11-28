@@ -8,6 +8,8 @@ class AlertMessage extends StatefulWidget {
 }
 
 class _AlertMessageState extends State<AlertMessage> {
+  final hasData = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,11 @@ class _AlertMessageState extends State<AlertMessage> {
             ),
             SizedBox(height: 16), // 상단 Row와 리스트 간의 간격 추가
             Expanded( // Column의 남은 공간을 ListView에 할당
-              child: AlertMessageList(),
+              child: hasData
+                  ? AlertMessageList()
+                  : Center(
+                  child: Text("알림함이 비었어요.", style: TextStyle(color: Colors.grey),)
+              )
             ),
           ],
         ),

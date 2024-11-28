@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:stockly/widgets/alert_request_list.dart';
 
-class AlertRequest extends StatelessWidget {
+class AlertRequest extends StatefulWidget {
+
+  @override
+  _AlertRequestState createState() => _AlertRequestState();
+}
+
+  class _AlertRequestState extends State<AlertRequest>{
+  final hasData = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,8 +18,12 @@ class AlertRequest extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Expanded( // 화면 전체에 적응하도록 수정
-              child: AlertRequestList(),
+            Expanded( // Column의 남은 공간을 ListView에 할당
+                child: hasData
+                    ? AlertRequestList()
+                    : Center(
+                    child: Text("알림 신청 내역이 없어요. ", style: TextStyle(color: Colors.black),)
+                )
             ),
           ],
         ),
