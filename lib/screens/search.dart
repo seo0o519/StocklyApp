@@ -52,7 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: TextField(
                 controller: searchController,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
