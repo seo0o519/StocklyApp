@@ -114,67 +114,72 @@ class _SellState extends State<Sell>{
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 12), // 텍스트 주변 패딩 설정
                                 backgroundColor: Colors.transparent,
                                 overlayColor: Colors.grey.withOpacity(0.05),
                                 side: BorderSide(color: Colors.grey.shade400, width: 0.5),
                               ),
                               child: Text(
                                 "10%",
-                                style: TextStyle(color: Colors.black, fontSize: 13),
+                                style: TextStyle(color: Colors.black, fontSize: 14), // 텍스트 스타일 확인
                               ),
                             ),
                           ),
-                          SizedBox(width:10),
+                          SizedBox(width: 10),
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 12),
                                 backgroundColor: Colors.transparent,
                                 overlayColor: Colors.grey.withOpacity(0.05),
                                 side: BorderSide(color: Colors.grey.shade400, width: 0.5),
                               ),
                               child: Text(
                                 "25%",
-                                style: TextStyle(color: Colors.black, fontSize: 13),
+                                style: TextStyle(color: Colors.black, fontSize: 14),
                               ),
                             ),
                           ),
-                          SizedBox(width:10),
+                          SizedBox(width: 10),
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 12),
                                 backgroundColor: Colors.transparent,
                                 overlayColor: Colors.grey.withOpacity(0.05),
                                 side: BorderSide(color: Colors.grey.shade400, width: 0.5),
                               ),
                               child: Text(
                                 "50%",
-                                style: TextStyle(color: Colors.black, fontSize: 13),
+                                style: TextStyle(color: Colors.black, fontSize: 14),
                               ),
                             ),
                           ),
-                          SizedBox(width:10),
+                          SizedBox(width: 10),
                           Expanded(
                             flex: 1,
                             child: OutlinedButton(
                               onPressed: () {},
                               style: OutlinedButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 12),
                                 backgroundColor: Colors.transparent,
                                 overlayColor: Colors.grey.withOpacity(0.05),
                                 side: BorderSide(color: Colors.grey.shade400, width: 0.5),
                               ),
                               child: Text(
                                 "최대",
-                                style: TextStyle(color: Colors.black, fontSize: 13),
+                                style: TextStyle(color: Colors.black, fontSize: 14),
                               ),
                             ),
                           ),
                         ],
                       ),
                     ),
+
 
                     Spacer(),
 
