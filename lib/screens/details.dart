@@ -28,6 +28,9 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   // 선택된 항목을 추적하는 변수
   int _selectedIndex = 0;  // 0: 차트, 1: 호가
+  int _selectedFilter = 1; // 0: 분, 1: 일, 2: 주, 3:월, 4:년
+  String dropdownValue = '1분';
+
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ],
             ),
 
-            // 토글 버튼
+            // 차트/호가 토글 버튼
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children : [
@@ -159,13 +162,172 @@ class _DetailsScreenState extends State<DetailsScreen> {
               ]
             ),
 
+            SizedBox(height: 10),
+
             // 선택된 버튼에 따라 다르게 표시되는 자식 요소
             Expanded(
               child: _selectedIndex == 0
                   ? CandleChart(symbol: widget.symbol)  // 차트 화면
                   : OrderBook(symbol: widget.symbol),  // 호가 화면, 이 위젯은 별도로 구현 필요
             ),
+
+
+
             SizedBox(height: 10),
+
+
+
+            // 분, 일, 주, 월, 년 필터링 버튼
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children : [
+                  ToggleButtons(
+                    isSelected: [_selectedFilter == 0, _selectedFilter == 1, _selectedFilter == 2, _selectedFilter == 3, _selectedFilter == 4],
+                    onPressed: (index) {
+                      setState(() {
+                        _selectedFilter = index;
+                      });
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    renderBorder: false,
+                    constraints: const BoxConstraints(
+                      minHeight: 30, // 버튼의 높이 지정
+                    ),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _selectedFilter == 0 ? Color(0xffEAECF0) : Colors.transparent,
+                            borderRadius: BorderRadius.circular(25), // 타원형 배경
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: dropdownValue,
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue = newValue!;
+                                  _selectedFilter = 0; // 드롭다운 선택 시 필터를 0으로 설정
+                                });
+                              },
+                              items: <String>['1분', '5분']
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                                    child: Text(
+                                      value,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }).toList(),
+                              style: const TextStyle(color: Colors.black),
+                              dropdownColor: Colors.white, // 드롭다운 리스트의 배경색 설정
+                            ),
+                          ),
+                        ),
+                      ),
+
+
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _selectedFilter == 1 ? Color(0xffEAECF0) : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20), // 타원형 배경
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text(
+                              '일',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _selectedFilter == 2 ? Color(0xffEAECF0) : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20), // 타원형 배경
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text(
+                              '주',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _selectedFilter == 3 ? Color(0xffEAECF0) : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20), // 타원형 배경
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text(
+                              '월',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: _selectedFilter == 4 ? Color(0xffEAECF0) : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20), // 타원형 배경
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            child: Text(
+                              '년',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    selectedColor: Colors.black, // 선택된 버튼
+                    fillColor: Colors.transparent, // 선택된 버튼
+                    borderWidth: 0, // 토글 버튼의 테두리 없애기
+                  ),
+                ]
+            ),
+
+
+            SizedBox(height: 10),
+
+
+            // 판매, 구매 버튼
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               child: SizedBox(
