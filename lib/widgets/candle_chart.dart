@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:interactive_chart/interactive_chart.dart';
-import 'mock_data.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 
 class CandleChart extends StatefulWidget {
@@ -16,11 +17,48 @@ class CandleChart extends StatefulWidget {
 }
 
 class _CandleChartState extends State<CandleChart> {
-  final List<CandleData> _data = MockDataTesla.candles;
-
-
+  List <CandleData> stockDatas = [];
+  bool isLoading = true;  // 로딩 상태를 관리하는 변수
 
   @override
+  void initState(){
+    super.initState();
+    fetchDatas();
+  }
+
+  Future<void> fetchDatas() async {
+    try {
+      final url = Uri.parse(
+          'http://localhost.stock-service/api/v1/stockDetails/historicalFilter?symbol=${widget.symbol}&interval=1d');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = json.decode(response.body);
+
+        // JSON 데이터를 CandleData 리스트로 변환
+        final parsedData = data.map((item) {
+          return CandleData(
+            timestamp: DateTime.parse(item['date']).millisecondsSinceEpoch,
+            open: item['open'].toDouble(),
+            high: item['high'].toDouble(),
+            low: item['low'].toDouble(),
+            close: item['close'].toDouble(),
+            volume: item['volume'].toDouble(),
+          );
+        }).toList();
+
+        // 상태 업데이트
+        setState(() {
+          stockDatas = parsedData;
+          isLoading = false;  // 데이터가 로드되면 로딩 상태를 false로 설정
+        });
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      print('Error fetching companies: $e');
+    }
+  }
 
 
   @override
@@ -28,15 +66,17 @@ class _CandleChartState extends State<CandleChart> {
     return Column(
       children: [
         Expanded(
-          child: InteractiveChart(
-            candles: _data,
+          child: isLoading  // 로딩 중이면 로딩 스피너를 표시
+              ? Center(child: CircularProgressIndicator())
+              : InteractiveChart(
+            candles: stockDatas,
             style: ChartStyle(
               priceGainColor: Colors.red,
               priceLossColor: Colors.blue,
             ),
             onTap: (candle) => print("user tapped on $candle"),
-            priceLabel: (price) => "${price.round()}"
-          )
+            priceLabel: (price) => "${price.round()}",
+          ),
         ),
       ],
     );
@@ -81,21 +121,21 @@ class _CandleChartState extends State<CandleChart> {
   // onCandleResize: (width) => print("each candle is $width wide"),
 
 
-  _computeTrendLines() {
-    final ma7 = CandleData.computeMA(_data, 7);
-    final ma30 = CandleData.computeMA(_data, 30);
-    final ma90 = CandleData.computeMA(_data, 90);
-
-    for (int i = 0; i < _data.length; i++) {
-      _data[i].trends = [ma7[i], ma30[i], ma90[i]];
-    }
-  }
-
-  _removeTrendLines() {
-    for (final data in _data) {
-      data.trends = [];
-    }
-  }
+//   _computeTrendLines() {
+//     final ma7 = CandleData.computeMA(_data, 7);
+//     final ma30 = CandleData.computeMA(_data, 30);
+//     final ma90 = CandleData.computeMA(_data, 90);
+//
+//     for (int i = 0; i < _data.length; i++) {
+//       _data[i].trends = [ma7[i], ma30[i], ma90[i]];
+//     }
+//   }
+//
+//   _removeTrendLines() {
+//     for (final data in _data) {
+//       data.trends = [];
+//     }
+//   }
 }
 
 
