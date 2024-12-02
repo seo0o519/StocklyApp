@@ -1,13 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:stockly/screens/details.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class StockTable extends StatelessWidget {
-  final List<Map<String, dynamic>> datas;
+class StockTable extends StatefulWidget {
+  @override
+  _StockTableState createState() => _StockTableState();
+}
 
-  const StockTable({
-    Key? key,
-    required this.datas,
-  }) : super(key: key);
+class _StockTableState extends State<StockTable>{
+  List<Map<String, dynamic>> datas = [];
+  bool isLoading = true; // 데이터 로딩 상태
+
+  @override
+  void initState(){
+    super.initState();
+    fetchDatas();
+  }
+
+  Future<void> fetchDatas() async {
+    try {
+      final url = Uri.parse('http://localhost.stock-service/api/v1/stockDetails/symbols');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // UTF-8로 강제 디코딩
+        final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
+
+        setState(() {
+          datas = data.map((item) => {
+            "name": item['name'],
+            "symbol": item['symbol'],
+            "close": item['close'],
+            "rate" : item['rate'],
+            "rate_price" : item['rate_price']
+          }).toList();
+          isLoading = false; // 로딩 완료
+        });
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print('Error fetching companies: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +74,7 @@ class StockTable extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20), // vertical : my, horizontal : mx
                   child: Table(
                     columnWidths: const {
-                      0: FractionColumnWidth(0.5),
+                      0: FractionColumnWidth(0.6),
                       1: FractionColumnWidth(0.4),
                     },
                     children: [
@@ -50,13 +89,13 @@ class StockTable extends StatelessWidget {
                                     '${index + 1}',
                                     style: const TextStyle(
                                       color: Colors.blue,
-                                      fontSize: 25,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
                                 const SizedBox(width: 20),
-                                Text(data['name'], style: const TextStyle(fontSize: 20)),
+                                Text(data['name'], style: const TextStyle(fontSize: 18)),
                               ],
                             ),
                           ),
@@ -66,7 +105,7 @@ class StockTable extends StatelessWidget {
                               children: [
                                 Text(
                                     '${_formatCurrency((data['close'] as num).toDouble())}원',
-                                    style: const TextStyle(fontSize: 19),
+                                    style: const TextStyle(fontSize: 17),
                                     textAlign: TextAlign.right,
                                 ),
                                 Text(
@@ -74,7 +113,7 @@ class StockTable extends StatelessWidget {
                                   textAlign: TextAlign.right,
                                   style: TextStyle(
                                     color: (data['rate_price'] as num) > 0 ? Colors.red : Colors.blue,
-                                    fontSize: 15,
+                                    fontSize: 13,
                                   ),
                                 ),
                               ],
