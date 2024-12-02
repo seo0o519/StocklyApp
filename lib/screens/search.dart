@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:stockly/screens/details.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -6,25 +9,51 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final List<Map<String, dynamic>> companies = [
-    {"name": '삼성전자', "symbol": '005930'},
-    {"name": 'LG', "symbol": '003550'},
-    {"name": 'SK하이닉스', "symbol": '000660'},
-    {"name": '삼성바이오로직스', "symbol": '207940'},
-    {"name": '기아', "symbol": '000270'},
-  ];
-
+  List<Map<String, dynamic>> companies = [];
   List<Map<String, dynamic>> filteredCompanies = [];
   final TextEditingController searchController = TextEditingController();
+  bool isLoading = true; // 데이터 로딩 상태
 
   @override
   void initState() {
     super.initState();
-    filteredCompanies = companies; // 초기 상태는 전체 회사 리스트 표시
+    fetchCompanies(); // 초기 데이터 로드
     searchController.addListener(() {
       filterCompanies();
     });
   }
+
+  Future<void> fetchCompanies() async {
+    try {
+      final url = Uri.parse('http://localhost.stock-service/api/v1/stockDetails/symbols');
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // UTF-8로 강제 디코딩
+        final List<dynamic> data = json.decode(utf8.decode(response.bodyBytes));
+
+        setState(() {
+          companies = data.map((item) => {
+            "name": item['name'],
+            "symbol": item['symbol'],
+            "close": item['close'],
+            "rate" : item['rate'],
+            "rate_price" : item['rate_price']
+          }).toList();
+          filteredCompanies = companies; // 초기 상태는 전체 회사 리스트
+          isLoading = false; // 로딩 완료
+        });
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print('Error fetching companies: $e');
+    }
+  }
+
 
   void filterCompanies() {
     final query = searchController.text.toLowerCase();
@@ -35,9 +64,8 @@ class _SearchScreenState extends State<SearchScreen> {
     } else {
       setState(() {
         filteredCompanies = companies
-            .where((company) => company['name']
-            .toLowerCase()
-            .contains(query)) // 회사 이름에서 검색어 포함 여부 확인
+            .where((company) =>
+            company['name'].toLowerCase().contains(query)) // 회사 이름에서 검색어 포함 여부 확인
             .toList();
       });
     }
@@ -78,29 +106,50 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
               ),
             ),
+            // 로딩 상태 확인
+            if (isLoading)
+              Center(
+                child: CircularProgressIndicator(),
+              )
+            else
             // 종목 리스트
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                itemCount: filteredCompanies.length,
-                itemBuilder: (context, index) {
-                  final data = filteredCompanies[index];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text('${index + 1}',
-                            style: TextStyle(color: Colors.blue, fontSize: 22)),
-                        SizedBox(width: 15),
-                        Text('${data['name']}',
-                            style: TextStyle(color: Colors.black, fontSize: 20))
-                      ],
-                    ),
-                  );
-                },
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  itemCount: filteredCompanies.length,
+                  itemBuilder: (context, index) {
+                    final data = filteredCompanies[index];
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailsScreen(symbol: data['symbol'], name: data['name'], close: (data['close'] as num).toDouble(), rate: data['rate'], ratePrice: (data['rate_price'] as num).toDouble()),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('${index + 1}',
+                                style: TextStyle(color: Colors.blue, fontSize: 22)),
+                            SizedBox(width: 15),
+                            Flexible(
+                              child: Text(
+                                '${data['name']}',
+                                style: TextStyle(color: Colors.black, fontSize: 20),
+                                softWrap: true,
+                                overflow: TextOverflow.visible,),
+                            )
+                          ],
+                        ),
+                      )
+                    );
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),
