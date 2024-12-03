@@ -54,7 +54,9 @@ class _StockTableState extends State<StockTable>{
       children: [
         // 테이블 바디
         Expanded(
-          child: ListView.builder(
+          child: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : ListView.builder(
             itemCount: datas.length,
             itemBuilder: (context, index) {
               final data = datas[index];

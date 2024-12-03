@@ -134,12 +134,12 @@ class _SearchScreenState extends State<SearchScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('${index + 1}',
-                                style: TextStyle(color: Colors.blue, fontSize: 22)),
+                                style: TextStyle(color: Colors.blue, fontSize: 18)),
                             SizedBox(width: 15),
                             Flexible(
                               child: Text(
                                 '${data['name']}',
-                                style: TextStyle(color: Colors.black, fontSize: 20),
+                                style: TextStyle(color: Colors.black, fontSize: 18),
                                 softWrap: true,
                                 overflow: TextOverflow.visible,),
                             )
