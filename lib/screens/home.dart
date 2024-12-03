@@ -67,31 +67,7 @@ class _HomeState extends State<Home> {
             ),
             SizedBox(height: 10), // 텍스트와 테이블 사이 간격 추가
             Expanded( // 테이블이 남은 공간을 차지하도록 설정
-              child: StockTable(
-                datas: [
-                  {
-                    'symbol': '005930',
-                    'name': '삼성전자',
-                    'close': 57600,
-                    'rate': 1.23,
-                    'rate_price': 200,
-                  },
-                  {
-                    'symbol': '010101',
-                    'name': 'LG',
-                    'close': 900.00,
-                    'rate': -2.34,
-                    'rate_price': -20.00,
-                  },
-                  {
-                    'symbol': '011011',
-                    'name': '기아',
-                    'close': 900.00,
-                    'rate': -2.34,
-                    'rate_price': -20.00,
-                  }
-                ],
-              ),
+              child: StockTable(),
             ),
           ],
         ),
